@@ -1,5 +1,8 @@
 // product-details.js
+// This script fetches and displays detailed information for a specific product based on the product ID provided in the URL.
+
 document.addEventListener("DOMContentLoaded", function () {
+  // Select the container where product details will be displayed
   const productDetailsContainer = document.querySelector(
     ".product-details-container"
   );
@@ -8,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const urlParams = new URLSearchParams(window.location.search);
   const productId = urlParams.get("id");
 
-  // Fetch detailed information for the specific product
+  // Fetch detailed information for the specific product from the API endpoint
   fetch(`https://api.noroff.dev/api/v1/rainy-days/${productId}`)
     .then((response) => {
       if (!response.ok) {
@@ -25,6 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
       console.error("Error fetching product details:", error);
     });
 
+  // Function to create HTML elements for product details
   function createProductDetails(product) {
     const detailsContainer = document.createElement("div");
 
@@ -34,6 +38,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const title = document.createElement("h2");
     title.textContent = product.title || "Product Name N/A";
+
+    const description = document.createElement("p");
+    description.textContent = product.description || "No description available";
 
     const price = document.createElement("p");
     price.textContent = `Price: $${product.price || "N/A"}`;
@@ -50,6 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     detailsContainer.appendChild(image);
     detailsContainer.appendChild(title);
+    detailsContainer.appendChild(description); // Include description here
     detailsContainer.appendChild(price);
     detailsContainer.appendChild(addToCartButton);
 
