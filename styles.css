@@ -1,0 +1,163 @@
+* {
+    box-sizing: border-box;
+}
+
+main {
+    padding: 20px;
+    padding-bottom: 100px; /* Add margin at the bottom to create space for the fixed footer */
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #3498db;
+    color: #fff;
+    padding: 1em;
+    text-align: center;
+    display: flex;
+    align-items: center; /* Center items vertically within the header */
+    width: 100%;
+}
+
+.logo {
+    width: 50px; /* Adjust the width as needed */
+    margin-right: 10px; /* Add spacing between the logo and the heading */
+}
+
+nav {
+    flex-grow: 1; /* Allow the nav to take up remaining space */
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: center; /* Center the list items horizontally */
+}
+
+nav li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1em; /* Set a base font size */
+}
+
+main {
+    padding: 20px;
+}
+
+footer {
+    background-color: #34495e;
+    color: #fff;
+    text-align: center;
+    padding: 1em 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Media query for smaller screens */
+@media screen and (max-width: 600px) {
+    nav {
+        flex-direction: column; /* Stack the navigation items vertically on smaller screens */
+        text-align: center; /* Center the list items horizontally on smaller screens */
+    }
+
+    nav li {
+        display: block; /* Ensure list items stack vertically on smaller screens */
+        margin-right: 0; /* Remove right margin for stacked items */
+        margin-bottom: 10px; /* Add spacing between stacked items */
+    }
+}
+
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.product-card {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px;
+    text-align: center;
+    box-sizing: border-box;
+    width: calc(33.333% - 20px); /* Set the width to 33.333% of the container with some margin */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.product-card img {
+    max-width: 300px;
+    max-height: 300px;
+    
+}
+
+.product-card h2 {
+    margin-bottom: 10px;
+}
+
+.product-card p {
+    margin-bottom: 20px;
+}
+
+.product-card button {
+    cursor: pointer;
+}
+
+.product-list {
+    margin-bottom: 120px; /* Adjust the margin-bottom value based on your footer's height - Make*/
+}
+
+/* Media query for smaller screens - makes items display 1 and 1 in a column in mobile screens*/
+@media screen and (max-width: 600px) {
+    nav {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    nav li {
+        display: block;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    main {
+        padding: 10px;
+        padding-bottom: 120px;
+    }
+
+    .product-list {
+        justify-content: center;
+    }
+
+    .product-card {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .product-card img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .product-card h2 {
+        font-size: 1.2em;
+        margin-bottom: 5px;
+    }
+
+    .product-card p {
+        font-size: 1em;
+        margin-bottom: 10px;
+    }
+}
