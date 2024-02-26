@@ -4,13 +4,13 @@ document.addEventListener("DOMContentLoaded", function () {
   // Retrieve cart data from local storage
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-  // Display purchased items
+  // Display purchased items and total amount
   const orderSummarySection = document.getElementById("order-summary");
-  displayPurchasedItems(orderSummarySection, cart);
+  const totalAmount = displayPurchasedItems(orderSummarySection, cart);
 
   // Add user information form
   const userInformationSection = document.getElementById("user-information");
-  addUserInformationForm(userInformationSection);
+  addUserInformationForm(userInformationSection, totalAmount);
 });
 
 function displayPurchasedItems(container, cart) {
@@ -21,11 +21,24 @@ function displayPurchasedItems(container, cart) {
 
   container.innerHTML = "<h2>Purchased Items</h2>";
 
+  let totalPrice = 0;
+
   // Loop through the cart and display each item
   cart.forEach((item) => {
     const itemElement = createPurchasedItemElement(item);
     container.appendChild(itemElement);
+
+    // Calculate total price
+    const itemTotal = item.price * (item.quantity || 1);
+    totalPrice += itemTotal;
   });
+
+  // Display total amount (summary)
+  const totalAmountElement = document.createElement("p");
+  totalAmountElement.textContent = `Total Amount: $${totalPrice.toFixed(2)}`;
+  container.appendChild(totalAmountElement);
+
+  return totalPrice;
 }
 
 function createPurchasedItemElement(item) {
@@ -65,7 +78,7 @@ function createImageElement(imageSource, altText) {
   return image;
 }
 
-function addUserInformationForm(container) {
+function addUserInformationForm(container, totalAmount) {
   if (!container) {
     console.error("Container not found for adding user information form");
     return;
@@ -73,32 +86,72 @@ function addUserInformationForm(container) {
 
   container.innerHTML = "<h2>User Information</h2>";
 
-  // Create and append your user information form elements here
-  // Example: input fields for name, address, etc.
-  // You can use the same approach as in your checkout form
-
-  // Example:
-  const nameLabel = document.createElement("label");
-  nameLabel.textContent = "Name:";
-  const nameInput = document.createElement("input");
-  nameInput.type = "text";
-  nameInput.id = "name";
-  nameInput.name = "name";
-  nameInput.required = true;
+  // Example: Add more form fields for address, city, credit card, expiry, and cvv
+  const nameLabel = createFormElement("Name", "text", "name", true);
+  const addressLabel = createFormElement("Address", "text", "address", true);
+  const cityLabel = createFormElement("City", "text", "city", true);
+  const creditCardLabel = createFormElement(
+    "Credit Card",
+    "text",
+    "creditCard",
+    true
+  );
+  const expiryLabel = createFormElement("Expiry Date", "text", "expiry", true);
+  const cvvLabel = createFormElement("CVV", "text", "cvv", true);
 
   // Append the input fields to the container
   container.appendChild(nameLabel);
-  container.appendChild(nameInput);
-
-  // Add more form elements as needed
+  container.appendChild(addressLabel);
+  container.appendChild(cityLabel);
+  container.appendChild(creditCardLabel);
+  container.appendChild(expiryLabel);
+  container.appendChild(cvvLabel);
 
   // Add a submit button
   const submitButton = document.createElement("button");
   submitButton.textContent = "Submit";
   submitButton.addEventListener("click", function () {
     // Handle form submission logic here
-    alert("Form submitted successfully!");
+    // For demonstration purposes, use a toast for confirmation
+    showToast(
+      "Order placed successfully! Thank you for shopping with us.",
+      container
+    );
   });
 
   container.appendChild(submitButton);
+}
+
+function createFormElement(labelText, inputType, inputId, isRequired) {
+  const label = document.createElement("label");
+  label.textContent = labelText + ":";
+
+  const input = document.createElement("input");
+  input.type = inputType;
+  input.id = inputId;
+  input.name = inputId;
+  input.required = isRequired;
+
+  const container = document.createElement("div");
+  container.appendChild(label);
+  container.appendChild(input);
+
+  return container;
+}
+
+function showToast(message, detailsContainer) {
+  const toast = document.createElement("div");
+  toast.classList.add("toast");
+  toast.textContent = message;
+  detailsContainer.appendChild(toast);
+
+  setTimeout(function () {
+    toast.classList.add("show");
+    setTimeout(function () {
+      toast.classList.remove("show");
+      setTimeout(function () {
+        detailsContainer.removeChild(toast);
+      }, 300); // Fade out duration
+    }, 3000); // Toast display duration
+  }, 10); // Delay for adding transition class
 }

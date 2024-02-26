@@ -59,26 +59,28 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     addToCartButton.addEventListener("click", function () {
-      const selectedSize =
-        localStorage.getItem("selectedSize") || "No size selected";
-      console.log(
-        `Product added to cart: ${
-          product.title || "Unnamed Product"
-        }, Size: ${selectedSize}`
-      );
+      const selectedSize = localStorage.getItem("selectedSize");
 
       // Get or initialize the cart from local storage
       const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+      // Check if the cart is empty
+
       // Add the current product to the cart
       cart.push({
         productId,
         title: product.title,
         size: selectedSize,
-        price: product.price || 0, // Set a default value if price is not available
-        image: product.image || "placeholder-image.jpg", // Set a default image
+        price: product.price || 0,
+        image: product.image || "placeholder-image.jpg",
       });
+
       // Save the updated cart back to local storage
       localStorage.setItem("cart", JSON.stringify(cart));
+
+      // Display a message about item(s) being added to the cart
+      //alert("Item(s) added to cart");
+      showToast("item added to cart", detailsContainer);
     });
 
     detailsContainer.appendChild(image);
@@ -96,5 +98,21 @@ document.addEventListener("DOMContentLoaded", function () {
     sizeButtons.forEach((button) => {
       button.classList.remove("selected");
     });
+  }
+  function showToast(message, detailsContainer) {
+    const toast = document.createElement("div");
+    toast.classList.add("toast");
+    toast.textContent = message;
+    detailsContainer.appendChild(toast);
+
+    setTimeout(function () {
+      toast.classList.add("show");
+      setTimeout(function () {
+        toast.classList.remove("show");
+        setTimeout(function () {
+          detailsContainer.removeChild(toast);
+        }, 300); // Fade out duration
+      }, 3000); // Toast display duration
+    }, 10); // Delay for adding transition class
   }
 });

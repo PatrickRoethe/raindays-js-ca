@@ -98,8 +98,6 @@ document.addEventListener("DOMContentLoaded", function () {
           if (cart.length > 0) {
             window.location.href = "confirmation.html";
             localStorage.setItem("purchasedItems", JSON.stringify(cart));
-          } else {
-            console.log("Cart is empty. No redirection.");
           }
         });
         totalContainer.appendChild(buyNowButton);
