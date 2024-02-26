@@ -53,8 +53,6 @@ function createPurchasedItemElement(item) {
   itemElement.appendChild(price);
   itemElement.appendChild(image);
 
-  // Add more details as needed (size, quantity, etc.)
-
   return itemElement;
 }
 
@@ -86,7 +84,6 @@ function addUserInformationForm(container, totalAmount) {
 
   container.innerHTML = "<h2>User Information</h2>";
 
-  // Example: Add more form fields for address, city, credit card, expiry, and cvv
   const nameLabel = createFormElement("Name", "text", "name", true);
   const addressLabel = createFormElement("Address", "text", "address", true);
   const cityLabel = createFormElement("City", "text", "city", true);
@@ -112,7 +109,6 @@ function addUserInformationForm(container, totalAmount) {
   submitButton.textContent = "Submit";
   submitButton.addEventListener("click", function () {
     // Handle form submission logic here
-    // For demonstration purposes, use a toast for confirmation
     showToast(
       "Order placed successfully! Thank you for shopping with us.",
       container

@@ -124,7 +124,6 @@ footer {
     }
 }
 
-/* Add this to your styles.css or checkout-styles.css */
 .checkout-item button {
     background-color: #e74c3c;
     color: #fff;
@@ -138,7 +137,6 @@ footer {
     background-color: #c0392b;
   }
   
-/* Add this to your styles.css or checkout-styles.css */
 .checkout-item button {
     background-color: #e74c3c;
     color: #fff;
@@ -155,7 +153,7 @@ footer {
     background-color: #c0392b;
 }
 
-/* Add this to your checkout-styles.css */
+
 #total-container button {
     background-color: #2ecc71;
     color: #fff;

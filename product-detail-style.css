@@ -70,10 +70,8 @@ main {
     background-color: #ccc;
 }
 
-
-/* product-detail-style.css */
 .size-selector button.selected {
-    background-color: #3498db; /* Change this to your desired highlight color */
+    background-color: #3498db; 
     color: #fff;
   }
 
