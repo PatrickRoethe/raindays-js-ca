@@ -43,7 +43,7 @@ nav a {
     position: relative;
 }
 
-/* Add a pseudo-element for the hover effect */
+
 nav a::before {
     content: '';
     position: absolute;
@@ -57,7 +57,7 @@ nav a::before {
     transition: transform 0.3s ease-out;
 }
 
-/* Add the hover effect */
+
 nav a:hover::before {
     transform: scaleX(1);
     transform-origin: bottom left;
