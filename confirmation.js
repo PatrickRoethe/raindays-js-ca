@@ -1,5 +1,3 @@
-// confirmation.js
-
 document.addEventListener("DOMContentLoaded", function () {
   // Retrieve cart data from local storage
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
