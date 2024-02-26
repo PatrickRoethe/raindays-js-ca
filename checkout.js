@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   const checkoutContainer = document.getElementById("checkout-container");
   const totalContainer = document.getElementById("total-container");
-  const buyNowButton = document.createElement("button");
 
   // Retrieve cart data from local storage
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -14,19 +13,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Display summary
   displaySummary(cart);
-
-  // Create Buy Now button
-  buyNowButton.textContent = "Buy Now";
-  buyNowButton.addEventListener("click", function () {
-    // Redirect to the checkout form page (confirmation.html)
-    window.location.href = "confirmation.html";
-
-    // Save purchased items in local storage
-    localStorage.setItem("purchasedItems", JSON.stringify(cart));
-  });
-
-  // Append Buy Now button
-  totalContainer.appendChild(buyNowButton);
 
   function createCartItemElement(item) {
     const itemContainer = document.createElement("div");
@@ -44,12 +30,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const quantity = document.createElement("input");
     quantity.type = "number";
-    quantity.value = item.quantity || 1; // Default quantity, set dynamically
+    quantity.value = item.quantity || 1;
     quantity.addEventListener("input", function () {
-      // Update quantity in cart
       item.quantity = parseInt(quantity.value, 10);
       updateCart(cart);
-      // Update summary
       displaySummary(cart);
     });
 
@@ -59,13 +43,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const removeButton = document.createElement("button");
     removeButton.textContent = "Remove";
     removeButton.addEventListener("click", function () {
-      // Remove the item from the cart array
       const itemIndex = cart.findIndex((cartItem) => cartItem === item);
       if (itemIndex !== -1) {
         cart.splice(itemIndex, 1);
         updateCart(cart);
         displaySummary(cart);
-        // Remove the item element from the DOM
         checkoutContainer.removeChild(itemContainer);
       }
     });
@@ -87,15 +69,12 @@ document.addEventListener("DOMContentLoaded", function () {
   function displaySummary(cart) {
     let totalPrice = 0;
 
-    // Display each item's price in the summary
     cart.forEach((item) => {
       const itemTotal = item.price * (item.quantity || 1);
       totalPrice += itemTotal;
     });
 
-    // Check if totalContainer is not null before manipulation
     if (totalContainer) {
-      // Clear previous summary
       totalContainer.innerHTML = "";
 
       const summaryTitle = document.createElement("h2");
@@ -106,8 +85,33 @@ document.addEventListener("DOMContentLoaded", function () {
 
       totalContainer.appendChild(summaryTitle);
       totalContainer.appendChild(summaryText);
+
+      // Check if the cart is empty for redirection
+      if (cart.length === 0) {
+        const emptyCartMessage = document.createElement("p");
+        emptyCartMessage.textContent = "Your cart is empty.";
+        totalContainer.appendChild(emptyCartMessage);
+      } else {
+        // Add "Buy Now" button with click event
+        const buyNowButton = createBuyNowButton();
+        buyNowButton.addEventListener("click", function () {
+          if (cart.length > 0) {
+            window.location.href = "confirmation.html";
+            localStorage.setItem("purchasedItems", JSON.stringify(cart));
+          } else {
+            console.log("Cart is empty. No redirection.");
+          }
+        });
+        totalContainer.appendChild(buyNowButton);
+      }
     } else {
       console.error("totalContainer is null or undefined");
     }
+  }
+
+  function createBuyNowButton() {
+    const button = document.createElement("button");
+    button.textContent = "Buy Now";
+    return button;
   }
 });
