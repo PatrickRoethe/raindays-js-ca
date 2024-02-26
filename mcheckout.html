@@ -1,10 +1,11 @@
+<!-- checkout.html -->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="checkout-styles.css">
     <title>Checkout</title>
 </head>
 
@@ -15,21 +16,27 @@
             <ul>
                 <li><a href="./index.html">Home</a></li>
                 <li><a href="./products.html">Products</a></li>
-                <li><a href="./mcheckout.html">Checkout</a></li>
+                <li><a href="./checkout.html">Checkout</a></li>
                 <li><a href="#">Confirmation</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <section class="product-list">
-            <!-- Your rain jacket products go here -->
+        <section id="checkout-container">
+            <!-- Checkout items will be displayed here -->
+        </section>
+
+        <section id="total-container">
+            <!-- Summary will be displayed here -->
         </section>
     </main>
 
     <footer>
         <p>&copy; 2024 Rain Jacket Shop - Raindays. All rights reserved.</p>
     </footer>
+
+    <script src="checkout.js"></script>
 </body>
 
 </html>

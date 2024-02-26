@@ -1,0 +1,78 @@
+/* product-detail-style.css */
+body {
+    font-family: Arial, sans-serif;
+}
+
+header {
+    background-color: #3498db;
+    color: #fff;
+    padding: 1em;
+    text-align: center;
+}
+
+main {
+    padding: 20px;
+}
+
+.product-details-container {
+    text-align: center;
+}
+
+.product-details-container img {
+    max-width: 100%;
+    height: auto;
+}
+
+.product-details-container h2 {
+    margin-bottom: 10px;
+}
+
+.product-details-container p {
+    margin-bottom: 20px;
+}
+
+.product-details-container button {
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.product-details-container button:hover {
+    background-color: #297fb8;
+}
+
+.size-selector {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.size-selector button {
+    margin: 0 10px;
+    padding: 10px 15px;
+    background-color: #ddd;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.size-selector button.selected {
+    background-color: #3498db;
+    color: #fff;
+}
+
+.size-selector button:hover {
+    background-color: #ccc;
+}
+
+
+/* product-detail-style.css */
+.size-selector button.selected {
+    background-color: #3498db; /* Change this to your desired highlight color */
+    color: #fff;
+  }

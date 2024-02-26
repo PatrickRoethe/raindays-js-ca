@@ -1,17 +1,11 @@
-// product-details.js
-// This script fetches and displays detailed information for a specific product based on the product ID provided in the URL.
-
 document.addEventListener("DOMContentLoaded", function () {
-  // Select the container where product details will be displayed
   const productDetailsContainer = document.querySelector(
     ".product-details-container"
   );
 
-  // Extract product ID from the URL
   const urlParams = new URLSearchParams(window.location.search);
   const productId = urlParams.get("id");
 
-  // Fetch detailed information for the specific product from the API endpoint
   fetch(`https://api.noroff.dev/api/v1/rainy-days/${productId}`)
     .then((response) => {
       if (!response.ok) {
@@ -20,7 +14,6 @@ document.addEventListener("DOMContentLoaded", function () {
       return response.json();
     })
     .then((product) => {
-      // Display product details in the container
       const productDetails = createProductDetails(product);
       productDetailsContainer.appendChild(productDetails);
     })
@@ -28,7 +21,6 @@ document.addEventListener("DOMContentLoaded", function () {
       console.error("Error fetching product details:", error);
     });
 
-  // Function to create HTML elements for product details
   function createProductDetails(product) {
     const detailsContainer = document.createElement("div");
 
@@ -48,19 +40,61 @@ document.addEventListener("DOMContentLoaded", function () {
     const addToCartButton = document.createElement("button");
     addToCartButton.textContent = "Add to Cart";
 
+    const sizeSelector = document.createElement("div");
+    sizeSelector.className = "size-selector";
+
+    if (product.sizes && product.sizes.length > 0) {
+      product.sizes.forEach((size) => {
+        const sizeButton = document.createElement("button");
+        sizeButton.textContent = size;
+        sizeButton.addEventListener("click", function () {
+          clearSelectedSizes();
+          sizeButton.classList.add("selected");
+          // Save selected size to local storage
+          localStorage.setItem("selectedSize", size);
+        });
+
+        sizeSelector.appendChild(sizeButton);
+      });
+    }
+
     addToCartButton.addEventListener("click", function () {
+      const selectedSize =
+        localStorage.getItem("selectedSize") || "No size selected";
       console.log(
-        `Product added to cart: ${product.title || "Unnamed Product"}`
+        `Product added to cart: ${
+          product.title || "Unnamed Product"
+        }, Size: ${selectedSize}`
       );
-      // You can add the product to the cart locally or perform other actions
+
+      // Get or initialize the cart from local storage
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      // Add the current product to the cart
+      cart.push({
+        productId,
+        title: product.title,
+        size: selectedSize,
+        price: product.price || 0, // Set a default value if price is not available
+        image: product.image || "placeholder-image.jpg", // Set a default image
+      });
+      // Save the updated cart back to local storage
+      localStorage.setItem("cart", JSON.stringify(cart));
     });
 
     detailsContainer.appendChild(image);
     detailsContainer.appendChild(title);
-    detailsContainer.appendChild(description); // Include description here
+    detailsContainer.appendChild(description);
     detailsContainer.appendChild(price);
     detailsContainer.appendChild(addToCartButton);
+    detailsContainer.appendChild(sizeSelector);
 
     return detailsContainer;
+  }
+
+  function clearSelectedSizes() {
+    const sizeButtons = document.querySelectorAll(".size-selector button");
+    sizeButtons.forEach((button) => {
+      button.classList.remove("selected");
+    });
   }
 });
