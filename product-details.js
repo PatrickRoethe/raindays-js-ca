@@ -64,8 +64,6 @@ document.addEventListener("DOMContentLoaded", function () {
       // Get or initialize the cart from local storage
       const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-      // Check if the cart is empty
-
       // Add the current product to the cart
       cart.push({
         productId,
